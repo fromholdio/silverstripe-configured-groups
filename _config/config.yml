@@ -1,0 +1,32 @@
+---
+Name: fio-configured-groups
+---
+
+SilverStripe\Security\Group:
+  extensions:
+    fioConfiguredGroups: Fromholdio\ConfiguredGroups\ConfiguredGroups
+  configured_groups:
+    administrators:
+      title: Administrators
+      sort: 0
+      permissions:
+        - ADMIN
+    editors:
+      title: Editors
+      sort: 1
+      permissions:
+        - CMS_ACCESS_CMSMain
+        - CMS_ACCESS_AssetAdmin
+        - SITETREE_REORGANISE
+#    staff:
+#      title: Staff
+#      sort: 2
+#      children:
+#        staff-super:
+#          title: Super-staff
+#          sort: 0
+#          permissions:
+#            - 'CMS_ACCESS_Vendor\Package\ModelAdminClass'
+#            - CMS_ACCESS_CMSMain
+#            - CMS_ACCESS_AssetAdmin
+#            - SITETREE_REORGANISE

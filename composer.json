@@ -1,0 +1,26 @@
+{
+  "name": "fromholdio/silverstripe-configured-groups",
+  "type": "silverstripe-vendormodule",
+  "description": "Use configuration to define security groups",
+  "license": "BSD-3-Clause",
+  "keywords": ["silverstripe", "cms", "security", "groups", "configuration"],
+  "homepage": "https://github.com/fromholdio/silverstripe-configured-groups",
+  "support": {
+    "issues": "https://github.com/fromholdio/silverstripe-configured-groups/issues"
+  },
+  "authors": [{
+    "name": "Luke Fromhold",
+    "homepage": "https://fromhold.io"
+  }],
+  "require": {
+    "silverstripe/vendor-plugin": "^1.0",
+    "silverstripe/framework": "^4.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Fromholdio\\ConfiguredGroups\\": "src/"
+    }
+  },
+  "prefer-stable": true,
+  "minimum-stability": "dev"
+}
