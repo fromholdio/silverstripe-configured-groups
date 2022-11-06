@@ -10,6 +10,8 @@ class ConfiguredGroups extends DataExtension
 {
     private static $configured_groups;
 
+    private static $do_clear_unconfigured_permissions = false;
+
     public function requireDefaultRecords()
     {
         $config = $this->getOwner()->config()->get('configured_groups');
@@ -120,9 +122,26 @@ class ConfiguredGroups extends DataExtension
         $group->ParentID = $parentGroupID;
         $group->write();
 
-        if (!empty($permissions) && is_array($permissions)) {
-            foreach ($permissions as $permission) {
-                Permission::grant($group->ID, $permission);
+        if (!empty($permissions) && is_array($permissions))
+        {
+            if ($this->getOwner()->config()->get('do_clear_unconfigured_permissions'))
+            {
+                $unconfigPermissions = Permission::get()
+                    ->filter('GroupID', $group->getField('ID'))
+                    ->exclude('Code', array_values($permissions));
+                foreach ($unconfigPermissions as $unconfigPermission) {
+                    $unconfigPermission->delete();
+                }
+            }
+            foreach ($permissions as $permission)
+            {
+                $existingPermission = Permission::get()->filter([
+                    'GroupID' => $group->getField('ID'),
+                    'Code' => $permission
+                ])->first();
+                if (!$existingPermission || !$existingPermission->exists()) {
+                    Permission::grant($group->ID, $permission);
+                }
             }
         }
 
