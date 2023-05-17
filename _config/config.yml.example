@@ -1,0 +1,46 @@
+---
+Name: fio-configured-groups-example
+---
+SilverStripe\Security\Group:
+  is_configured_root_groups_only: true
+  is_configured_permissions_only: true
+  configured_groups:
+    administrators:
+      title: Administrators
+      sort: 0
+      is_hidden: true
+      permissions:
+        - ADMIN
+    managers:
+      title: Site managers
+      sort: 1
+      is_configured_children_only: true
+      permissions:
+        - CMS_ACCESS_CMSMain
+        - CMS_ACCESS_AssetAdmin
+        - CMS_ACCESS_ReportAdmin
+        - CMS_ACCESS_SecurityAdmin
+        - SITETREE_REORGANISE
+        - EDIT_SITECONFIG
+    editors:
+      title: Editors
+      sort: 2
+      permissions:
+        - CMS_ACCESS_CMSMain
+        - CMS_ACCESS_AssetAdmin
+        - SITETREE_REORGANISE
+    previewers:
+      title: Previewers
+      sort: 3
+      children:
+        previewer-special:
+          title: 'Special previewers'
+          sort: 0
+          permissions:
+            - CMS_ACCESS_CMSMain
+            - VIEW_DRAFT_CONTENT
+        previewer-okay:
+          title: 'Just okay previewers'
+          sort: 1
+          permissions:
+            - VIEW_DRAFT_CONTENT
